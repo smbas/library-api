@@ -41,3 +41,23 @@ categories = {
         }
     }
 }
+
+borrows = {
+    'item_title': 'borrow',
+    "resource_methods": ["GET", "POST"],
+    "item_methods": ["GET", "DELETE"],
+    'schema': {
+        'book': {
+            'type': 'objectid',
+            'data_relation': {
+                'resource': 'books'
+            }
+        },
+        'reader': {
+            'type': 'objectid',
+            'data_relation': {
+                'resource': 'users'
+            }
+        }
+    }
+}
