@@ -1,12 +1,8 @@
-DOMAIN = {
-    "people": {
+from domain import DOMAIN
 
-    }
-}
-
-MONGO_HOST = "mongo"
+MONGO_HOST = 'mongo'
 # MONGO_PORT = 27017
-# MONGO_USERNAME = ""
-# MONGO_PASSWORD = ""
-# MONGO_AUTH_SOURCE = ""
-MONGO_DBNAME = "apitest"
+# MONGO_USERNAME = ''
+# MONGO_PASSWORD = ''
+# MONGO_AUTH_SOURCE = ''
+MONGO_DBNAME = 'library'
