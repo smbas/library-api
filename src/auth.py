@@ -4,6 +4,7 @@ from flask import current_app as app
 from datetime import datetime
 
 import jwt
+import bcrypt
 
 
 class LibraryAuth(TokenAuth):
@@ -52,10 +53,31 @@ def get_user_by_token(token):
 
 def get_user_by_login_data(email, password):
     users = get_users()
-    user = users.find_one({'email': email, 'password': password})
+    user = users.find_one({'email': email})
+    if not user:
+        return None
+    if not check_user_password(user, password):
+        return None
     return user
 
 
 def update_user_token(user, token):
     users = get_users()
     users.update({'_id': user['_id']}, {'$set': {'token': token}})
+
+
+def protect_user_password(user):
+    salt = bcrypt.gensalt()
+    password = user['password'].encode('utf-8')
+    hashed_password = bcrypt.hashpw(password, salt)
+    user['password'] = hashed_password
+
+
+def check_user_password(user, password):
+    hashed_password = user['password']
+    return hashed_password == bcrypt.hashpw(password.encode('utf-8'), hashed_password)
+
+
+def on_insert_users(documents):
+    for document in documents:
+        protect_user_password(document)

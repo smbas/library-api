@@ -1,11 +1,14 @@
 from eve import Eve
 from flask import jsonify, request, abort
-
-from auth import LibraryAuth, create_token, get_user_by_token, get_user_by_login_data, update_user_token
-
+from auth import LibraryAuth
+from auth import create_token, get_user_by_token, get_user_by_login_data, update_user_token
+from auth import on_insert_users
 from datetime import timedelta
+from utils import get_request_param
+
 
 app = Eve(auth=LibraryAuth)
+app.on_insert_users += on_insert_users
 
 
 @app.route('/login', methods=['POST'])
@@ -41,21 +44,6 @@ def logout():
 
     update_user_token(user, "")
     return ""
-
-
-def get_request_param(request, name):
-    headers = request.headers
-    if headers and name in headers:
-        return headers[name]
-
-    json = request.json
-    if json and name in json:
-        return json[name]
-
-    values = request.values
-    if values and name in values:
-        return values[name]
-    return None
 
 
 if __name__ == "__main__":
