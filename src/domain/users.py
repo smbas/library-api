@@ -4,6 +4,7 @@ users = {
     'item_title': 'user',
     "resource_methods": ["GET", "POST"],
     "item_methods": ["GET", "PATCH", "DELETE"],
+    "authentication": None,
     'schema': {
         'email': {
             'type': 'string',
@@ -26,6 +27,7 @@ users = {
 }
 
 admins = {
+    'allowed_roles': USER_ROLES,
     'datasource': {
         'item_title': 'admin',
         'source': 'users',
@@ -37,6 +39,7 @@ admins = {
 
 readers = {
     'datasource': {
+        'allowed_roles': USER_ROLES,
         'item_title': 'admin',
         'source': 'users',
         'filter': {

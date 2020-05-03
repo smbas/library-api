@@ -1,7 +1,11 @@
+from .users import USER_ROLES
+
 books = {
     'item_title': 'book',
     "resource_methods": ["GET", "POST"],
     "item_methods": ["GET", "PATCH", "DELETE"],
+    'allowed_roles': ['admin'],
+    'allowed_read_roles': USER_ROLES,
     'schema': {
         'title': {
             'type': 'string',
@@ -32,6 +36,8 @@ categories = {
     'item_title': 'category',
     "resource_methods": ["GET", "POST"],
     "item_methods": ["GET", "PATCH", "DELETE"],
+    'allowed_roles': ['admin'],
+    'allowed_read_roles': USER_ROLES,
     'schema': {
         'name': {
             'type': 'string',
@@ -46,6 +52,8 @@ borrows = {
     'item_title': 'borrow',
     "resource_methods": ["GET", "POST"],
     "item_methods": ["GET", "DELETE"],
+    'allowed_roles': ['admin'],
+    'allowed_read_roles': USER_ROLES,
     'schema': {
         'book': {
             'type': 'objectid',
